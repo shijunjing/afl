@@ -1,0 +1,11 @@
+--- qemu-2.10.0/configure	2017-08-31 00:50:40.000000000 +0800
++++ qemu-2.10.0/configure	2019-01-04 23:06:45.232045058 +0800
+@@ -3855,7 +3855,7 @@
+ # check if memfd is supported
+ memfd=no
+ cat > $TMPC << EOF
+-#include <sys/memfd.h>
++#include <sys/mman.h>
+ 
+ int main(void)
+ {
