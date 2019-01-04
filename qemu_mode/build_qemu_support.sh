@@ -131,6 +131,8 @@ echo "[*] Applying patches..."
 patch -p1 <../patches/elfload.diff || exit 1
 patch -p1 <../patches/cpu-exec.diff || exit 1
 patch -p1 <../patches/syscall.diff || exit 1
+patch -p1 <../patches/memfd.diff || exit 1
+patch -p1 <../patches/configure.diff || exit 1
 
 echo "[+] Patching done."
 
@@ -145,7 +147,7 @@ echo "[+] Configuration complete."
 
 echo "[*] Attempting to build QEMU (fingers crossed!)..."
 
-make || exit 1
+make -j 4 || exit 1
 
 echo "[+] Build process successful!"
 
