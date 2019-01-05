@@ -1,20 +1,19 @@
---- qemu-2.10.0-rc3-clean/linux-user/syscall.c	2017-08-15 11:39:41.000000000 -0700
-+++ qemu-2.10.0-rc3/linux-user/syscall.c	2017-08-22 14:34:03.193088186 -0700
-@@ -116,6 +116,8 @@
+--- qemu/linux-user/syscall.c	2019-01-05 14:16:21.635034416 +0800
++++ qemu/linux-user/syscall.c	2019-01-05 13:02:06.339593681 +0800
+@@ -111,6 +111,7 @@
  
  #include "qemu.h"
- 
+ #include "fd-trans.h"
 +extern unsigned int afl_forksrv_pid;
-+
+
  #ifndef CLONE_IO
  #define CLONE_IO                0x80000000      /* Clone io context */
- #endif
-@@ -11688,8 +11690,21 @@
-         break;
+@@ -10799,8 +10800,22 @@
+         return get_errno(safe_tkill((int)arg1, target_to_host_signal(arg2)));
  
      case TARGET_NR_tgkill:
--        ret = get_errno(safe_tgkill((int)arg1, (int)arg2,
--                        target_to_host_signal(arg3)));
+-        return get_errno(safe_tgkill((int)arg1, (int)arg2,
+-                         target_to_host_signal(arg3)));
 +
 +        {
 +          int pid  = (int)arg1,
@@ -30,6 +29,7 @@
 +
 +        }
 +
-         break;
++        break;
  
  #ifdef TARGET_NR_set_robust_list
+     case TARGET_NR_set_robust_list:
